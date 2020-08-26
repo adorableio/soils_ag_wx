@@ -1,4 +1,4 @@
-class Subscriber < ActiveRecord::Base
+class Subscriber < ApplicationRecord
   before_create :set_confirmation_token
   has_many :subscriptions
   has_many :products, :through => :subscriptions
@@ -53,11 +53,11 @@ class Subscriber < ActiveRecord::Base
   def self.send_daily_mail
     et_product = Product.where(name: 'Evapotranspiration').first
     date = Date.today - 1.day
-    return if (date.yday < et_product.default_doy_start || 
+    return if (date.yday < et_product.default_doy_start ||
                date.yday >= et_product.default_doy_end)
-    Subscriber.all.each do |subscriber| 
-      subs = subscriber.subscriptions.where(product: et_product).map do |sub| 
-        { 
+    Subscriber.all.each do |subscriber|
+      subs = subscriber.subscriptions.where(product: et_product).map do |sub|
+        {
           site_name: sub.name,
           latitude: sub.latitude,
           longitude: sub.longitude,

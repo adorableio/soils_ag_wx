@@ -1,10 +1,10 @@
 class AwonController < ApplicationController
-  
+
   def index
     @blogs = Blog.find(:all, :order => 'date desc')
     select_data
   end
-  
+
   def awon_check_boxes
     select_data
     render :partial => 'awon_check_boxes', :layout => false
@@ -24,17 +24,17 @@ class AwonController < ApplicationController
     end
   end
 
-  
+
   def graphs
   end
-  
+
   def graphs_soiltemp
   end
-  
+
   def blog
-    @blogs = Blog.find(:all, :order => 'date desc')
+    @blogs = Blog.all.order(date: :desc)
   end
-  
+
   def awon_seven_day
     if params[:stnid] then stnids = [params[:stnid].to_i] else stnids = [4751,4781] end
     @stns = stnids.inject({}) do |hash, stnid|
@@ -42,7 +42,7 @@ class AwonController < ApplicationController
     end
     @recs = stnids.inject({}) do |hash, stnid|
       hash.merge({
-        stnid => T411.where('date >= ? and awon_station_id=?',Time.now - 7.days,@stns[stnid][:id])
+        stnid => T411.where('date >= ? and awon_station_id=?', Time.now - 7.days, @stns[stnid][:id])
       })
     end
     @soil_recs = stnids.inject({}) do |hash, stnid|
@@ -64,7 +64,7 @@ class AwonController < ApplicationController
     rescue Exception => e
       stnid = 1
     end
-    
+
     use_abbrevs = ("true" == params[:use_abbrevs]) # false if missing too
     select_data # sets @report_type, @report_types, @db_class, and @ahrs
     begin
@@ -81,26 +81,25 @@ class AwonController < ApplicationController
         params[:data_field][pair[0]] == nil
       end
     end
-        
+
     @results = @db_class.where(['awon_station_id = ? and date >= ? and date <= ?',stnid,start_date,end_date]).order(:date,:time)
     respond_to do |format|
       format.html do
         text = @db_class.csv_header(use_abbrevs,@ahrs) + "<br/>"
         text += @results.collect { |rec| rec.to_csv(@ahrs) }.join("<br/>")
-        render :text => text
+        render plain: text
       end
       format.csv do
         text = @db_class.csv_header(use_abbrevs,@ahrs)
         text += @results.collect { |rec| rec.to_csv(@ahrs) }.join("")
-        render :text => text
+        render plain: text
       end
     end
-    
+
   end
-  
+
   private
   def report_type(number)
-    puts "number is #{number}"
     case number
     when 411
       T411
@@ -134,16 +133,16 @@ class AwonController < ApplicationController
     @db_class = report_type(@report_type)
     @ahrs = @db_class.attr_human_readables
   end
-  
+
   def parse_param_date(hash)
     begin
       year = hash["year"].to_i || Date.today.year
       month = hash["month"].to_i || Date.today.month
       day = hash["day"].to_i || Date.today.day
       Date.civil(year,month,day)
-    rescue Exception => e
+    rescue Exception
       Date.today
     end
   end
-  
+
 end

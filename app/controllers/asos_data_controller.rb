@@ -1,6 +1,6 @@
 class AsosDataController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: [:create]
-  before_filter :authenticate, only: [:create, :update, :delete]
+  skip_before_action :verify_authenticity_token, only: [:create]
+  before_action :authenticate, only: [:create, :update, :delete]
   before_action :set_asos_datum, only: [:show, :edit, :update, :destroy]
 
   # GET /asos_data
@@ -49,7 +49,7 @@ class AsosDataController < ApplicationController
   # PATCH/PUT /asos_data/1.json
   def update
     respond_to do |format|
-      if @asos_datum.update(asos_datum_params)
+      if @asos_datum.update(asos_datum_params(asos_station))
         format.html { redirect_to @asos_datum, notice: 'Asos datum was successfully updated.' }
         format.json { head :no_content }
       else
@@ -82,7 +82,7 @@ class AsosDataController < ApplicationController
     mins = ((ts % 10000) - secs) / 100
     Time.new(dt.year,dt.month,dt.day,hours,mins,secs)
   end
-  
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def asos_datum_params(asos_station)
     p = params.require(:asos_datum).permit(
@@ -98,17 +98,17 @@ class AsosDataController < ApplicationController
       p[:actual_time] = time_from_date_and_timestamp(dt,p[:actual_time])
     # normal update or create
     when /([\d]{4})-([\d]{2})-([\d]{2})$/
-      p[:date] = Date.parse [:date]
+      p[:date] = Date.parse p[:date]
     else
       raise "Invalid date #{p[:date].inspect}"
     end
     p[:asos_station_id] ||= asos_station[:id]
     p
   end
-  
+
   def asos_station
     p = params.require(:asos_station).permit(:stnid,:latitude,:longitude)
     AsosStation.find_by_stnid(p[:stnid]) || AsosStation.create!(p)
   end
-  
+
 end

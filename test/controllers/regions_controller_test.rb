@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RegionsControllerTest < ActionController::TestCase
   setup do
-    @region = regions(:one)
+    @region = regions(:central)
   end
 
   test "should get index" do
@@ -18,30 +18,30 @@ class RegionsControllerTest < ActionController::TestCase
 
   test "should create region" do
     assert_difference('Region.count') do
-      post :create, region: { abbrev: @region.abbrev, name: @region.name }
+      post :create, params: { region: { abbrev: @region.abbrev, name: @region.name } }
     end
 
     assert_redirected_to region_path(assigns(:region))
   end
 
   test "should show region" do
-    get :show, id: @region
+    get :show, params: { id: @region }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @region
+    get :edit, params: { id: @region }
     assert_response :success
   end
 
   test "should update region" do
-    patch :update, id: @region, region: { abbrev: @region.abbrev, name: @region.name }
+    patch :update, params: { id: @region, region: { abbrev: @region.abbrev, name: @region.name } }
     assert_redirected_to region_path(assigns(:region))
   end
 
   test "should destroy region" do
     assert_difference('Region.count', -1) do
-      delete :destroy, id: @region
+      delete :destroy, params: { id: @region }
     end
 
     assert_redirected_to regions_path

@@ -1,4 +1,4 @@
-class OldT401 < ActiveRecord::Base
+class OldT401 < ApplicationRecord
     establish_connection adapter: 'mysql',
       host: '127.0.0.1',
       username: 'wayne',
@@ -8,7 +8,7 @@ class OldT401 < ActiveRecord::Base
     self.table_name = "t_#{$1}"
 
     include Reportable
-  
+
   def self.attr_human_readables
     [
       ["stnid","Station Number"],

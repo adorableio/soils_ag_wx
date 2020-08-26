@@ -18,30 +18,30 @@ class AsosStationsControllerTest < ActionController::TestCase
 
   test "should create asos_station" do
     assert_difference('AsosStation.count') do
-      post :create, asos_station: { latitude: @asos_station.latitude, longitude: @asos_station.longitude, name: @asos_station.name, state: @asos_station.state, stn_type: @asos_station.stn_type, stnid: @asos_station.stnid }
+      post :create, params: { asos_station: { latitude: @asos_station.latitude, longitude: @asos_station.longitude, name: @asos_station.name, state: @asos_station.state, stn_type: @asos_station.stn_type, stnid: @asos_station.stnid } }
     end
 
     assert_redirected_to asos_station_path(assigns(:asos_station))
   end
 
   test "should show asos_station" do
-    get :show, id: @asos_station
+    get :show, params: { id: @asos_station }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @asos_station
+    get :edit, params: { id: @asos_station }
     assert_response :success
   end
 
   test "should update asos_station" do
-    patch :update, id: @asos_station, asos_station: { latitude: @asos_station.latitude, longitude: @asos_station.longitude, name: @asos_station.name, state: @asos_station.state, stn_type: @asos_station.stn_type, stnid: @asos_station.stnid }
+    patch :update, params: { id: @asos_station, asos_station: { latitude: @asos_station.latitude, longitude: @asos_station.longitude, name: @asos_station.name, state: @asos_station.state, stn_type: @asos_station.stn_type, stnid: @asos_station.stnid } }
     assert_redirected_to asos_station_path(assigns(:asos_station))
   end
 
   test "should destroy asos_station" do
     assert_difference('AsosStation.count', -1) do
-      delete :destroy, id: @asos_station
+      delete :destroy, params: { id: @asos_station }
     end
 
     assert_redirected_to asos_stations_path

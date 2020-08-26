@@ -1,6 +1,6 @@
 class WiMnDAveVaprsController < ApplicationController
   before_action :set_wi_mn_d_ave_vapr, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate, only: [:create, :update, :delete]
+  before_action :authenticate, only: [:create, :update, :delete]
   
 
   # GET /wi_mn_d_ave_vaprs

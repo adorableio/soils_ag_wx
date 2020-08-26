@@ -1,3 +1,4 @@
+require 'byebug'
 class SubscribersController < ApplicationController
   before_action :get_subscriber_from_session, only: [:manage, :update, :admin,
                                                      :destroy,
@@ -12,7 +13,7 @@ class SubscribersController < ApplicationController
 
   def manage
     # is there a subscriber in the session? If so they have already validated.
-    if !@subscriber.nil?
+    if @subscriber.present?
       if params[:email_address] && params[:email_address] != @subscriber.email
         remove_from_session
         redirect_to manage_subscribers_path(email_address: params[:email_address])
@@ -176,7 +177,7 @@ class SubscribersController < ApplicationController
     return render json: {message: "error"} if @subscriber.nil? || !@subscriber.admin?
 
     subr = Subscriber.find(params[:id])
-    subr.update_attributes(subscriber_params)
+    subr.update(subscriber_params)
     respond_to do |format|
       format.json { render json: {message: "success"} }
     end
@@ -194,7 +195,7 @@ class SubscribersController < ApplicationController
 
   private
     def subscriber_params
-      params.require(:subscriber).permit(:name, :email, :confirmed)
+      params.require(:subscriber).permit(:name, :email, :confirmed_at)
     end
 
     def add_to_session(id)

@@ -1,4 +1,4 @@
-class OldT406 < ActiveRecord::Base
+class OldT406 < ApplicationRecord
   establish_connection adapter: 'mysql',
     host: '127.0.0.1',
     username: 'wayne',
@@ -28,5 +28,5 @@ class OldT406 < ActiveRecord::Base
       ["HhAvTDew","Average Dew Temperature (Deg C)"]
     ]
   end
-  
+
 end

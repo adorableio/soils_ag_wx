@@ -1,2 +1,36 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 # No fixture for this one -- loaded out of db/WIMNTMin2002 in the test's setup method
+one:
+  date: 2020-01-01
+  time: 2020-01-01 09:28:52
+  w980: 1.0
+  w976: 1.0
+  w972: 1.0
+  w968: 1.0
+  w964: 1.0
+  w960: 1.0
+  w956: 1.0
+  w952: 1.0
+  w948: 1.0
+  w944: 1.0
+  w940: 1.0
+  w936: 1.0
+  w932: 1.0
+  w928: 1.0
+  w924: 1.0
+  w920: 1.0
+  w916: 1.0
+  w912: 1.0
+  w908: 1.0
+  w904: 1.0
+  w900: 1.0
+  w896: 1.0
+  w892: 1.0
+  w888: 1.0
+  w884: 1.0
+  w880: 1.0
+  w876: 1.0
+  w872: 1.0
+  w868: 1.0
+  w864: 1.0
+  w860: 1.0

@@ -15,3 +15,11 @@ two:
   stn_type: MyString
   latitude: 1.5
   longitude: 1.5
+
+kaig:
+  stnid: KAIG
+  state: MyString
+  name: MyString
+  stn_type: MyString
+  latitude: 1.5
+  longitude: 1.5

@@ -1,10 +1,10 @@
-class T406 < ActiveRecord::Base
+class T406 < ApplicationRecord
   include Reportable
   include Assessable
-  
+
   belongs_to :awon_station
   def self.attr_human_readables
-    [                                                  
+    [
       ["date","Date"],
       ["time","Time"],
       ["HhToPcpn","Total Precipitation (mm)"],

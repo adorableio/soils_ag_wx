@@ -6,11 +6,6 @@ class AwonControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get select_data" do
-    get :select_data
-    assert_response :success
-  end
-
   test "should get station_info" do
     get :station_info
     assert_response :success
@@ -27,11 +22,14 @@ class AwonControllerTest < ActionController::TestCase
   end
 
   test "should get blog" do
+    blogs(:one)
     get :blog
     assert_response :success
   end
 
   test "should get awon_seven_day" do
+    awon_stations(:one).update!(stnid: 4751)
+    awon_stations(:two).update!(stnid: 4781)
     get :awon_seven_day
     assert_response :success
   end

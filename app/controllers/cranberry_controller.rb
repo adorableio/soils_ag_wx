@@ -1,12 +1,12 @@
 class CranberryController < ApplicationController
-  before_filter :set_title
+  before_action :set_title
   
   def index
   end
   
   def summary
     unless params[:latitude] && params[:longitude]
-      redirect_to :index
+      redirect_to cranberry_index_path
       return
     end
     @latitude = params[:latitude].to_f

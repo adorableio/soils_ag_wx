@@ -1,11 +1,11 @@
-class OldAsosStation < ActiveRecord::Base
+class OldAsosStation < ApplicationRecord
   establish_connection adapter: 'mysql',
     host: '127.0.0.1',
     username: 'wayne',
     password: 'agem.Data',
     database: 'asos'
   self.table_name = "asosStations"
-  
+
   def self.translate
     all.each do |old|
       AsosStation.create!(
@@ -14,5 +14,5 @@ class OldAsosStation < ActiveRecord::Base
        )
     end
   end
-  
+
 end

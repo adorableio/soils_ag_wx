@@ -1,4 +1,4 @@
-class OldT412 < ActiveRecord::Base
+class OldT412 < ApplicationRecord
   establish_connection adapter: 'mysql',
     host: '127.0.0.1',
     username: 'wayne',
@@ -7,7 +7,7 @@ class OldT412 < ActiveRecord::Base
   self.to_s =~ /([\d]{3})$/
   self.table_name = "t_#{$1}"
   def self.attr_human_readables
-    [                                                  
+    [
       ["stnid","Station Number"],
       ["theDate","Date"],
       ["theTime","Time"],
@@ -29,5 +29,5 @@ class OldT412 < ActiveRecord::Base
       ["DAvTS1m","40 Inch Average Soil Temp. (Deg C)"]
     ]
   end
-  
+
 end

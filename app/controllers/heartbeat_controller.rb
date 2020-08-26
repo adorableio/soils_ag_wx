@@ -28,6 +28,8 @@ class HeartbeatController < ApplicationController
   end
 
   def hyd
+    # TODO ASK ABOUT WHAT THIS DOES? NEVER WORKED??
+    @hyd_res = []
     render partial: 'hyd'
   end
 
@@ -40,9 +42,9 @@ class HeartbeatController < ApplicationController
     @et_res = {'44.0,-92.0' => WiMnDet.hasYesterday(['latitude = ? and w920 is not null',44.0],Date.today - 1)}
     render partial: 'et'
   end
-  
+
   def asos_grids
-    @asos_grid_res = 
+    @asos_grid_res =
       [WiMnDAveTAir,WiMnDMinTAir,WiMnDMaxTAir,WiMnDAveVapr].inject({}) do |hash,grid_class|
         hash.merge( {grid_class.to_s => grid_class.hasYesterday(['latitude = ? and w920 is not null',44.0],Date.today - 1)} )
       end
@@ -91,5 +93,5 @@ class HeartbeatController < ApplicationController
     end
     render partial: 'webapps'
   end
-  
+
 end

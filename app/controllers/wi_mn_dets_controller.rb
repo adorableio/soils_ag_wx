@@ -1,6 +1,6 @@
 class WiMnDetsController < ApplicationController
   before_action :set_wi_mn_det, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate, only: [:create, :update, :delete]
+  before_action :authenticate, only: [:create, :update, :delete]
   
   include GridController
 
@@ -10,6 +10,7 @@ class WiMnDetsController < ApplicationController
   def grid_classes
     GRID_CLASSES.reject { |key,val| key != 'ET' }
   end
+
   def index
     @grid_classes = grid_classes
   end

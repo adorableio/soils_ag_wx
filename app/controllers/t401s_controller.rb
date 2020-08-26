@@ -1,6 +1,6 @@
 class T401sController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: [:create]
-  before_filter :authenticate, only: [:create, :update, :delete]
+  skip_before_action :verify_authenticity_token, only: [:create]
+  before_action :authenticate, only: [:create, :update, :delete]
   before_action :set_t401, only: [:show, :edit, :update, :destroy]
 
   # GET /t401s

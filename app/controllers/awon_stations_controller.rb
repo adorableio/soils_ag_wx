@@ -1,6 +1,6 @@
 class AwonStationsController < ApplicationController
   before_action :set_awon_station, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate, only: [:create, :update, :delete]
+  before_action :authenticate, only: [:create, :update, :delete]
   
 
   # GET /awon_stations

@@ -1,6 +1,7 @@
+require 'byebug'
 class T411sController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: [:create]
-  before_filter :authenticate, only: [:create, :update, :delete]
+  skip_before_action :verify_authenticity_token, only: [:create]
+  before_action :authenticate, only: [:create, :update, :delete]
   before_action :set_t411, only: [:show, :edit, :update, :destroy]
 
   # GET /t411s
@@ -62,17 +63,16 @@ class T411sController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   # Get datestamp (in Campbell Sci format) of last-uploaded 411.
   def last
     p = params.permit(:stnid,:format)
     stnid_str = p[:stnid] || '4751'
-    desired = p(:format)
     stn_id = AwonStation.find_by_stnid(stnid_str)[:id]
     date = T411.where(awon_station_id: stn_id).order('date').last.date
     @date_str = date.strftime("%y%j")
     respond_to  do |format|
-      format.html { render  text: @date_str }
+      format.html { render text: @date_str }
       format.json { render json:  @date_str }
     end
   end

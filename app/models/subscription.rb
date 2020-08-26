@@ -1,7 +1,7 @@
-class Subscription < ActiveRecord::Base
+class Subscription < ApplicationRecord
   belongs_to :subscriber
   belongs_to :product
-  
+
   def within_doy_range(range_start_doy, range_end_doy=range_start_doy)
     return true unless doy_start && doy_end
     return true unless doy_start < doy_end

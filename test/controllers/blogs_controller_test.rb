@@ -18,30 +18,30 @@ class BlogsControllerTest < ActionController::TestCase
 
   test "should create blog" do
     assert_difference('Blog.count') do
-      post :create, blog: { content: @blog.content, date: @blog.date, tags: @blog.tags }
+      post :create, params: { blog: { content: @blog.content, date: @blog.date, tags: @blog.tags } }
     end
 
     assert_redirected_to blog_path(assigns(:blog))
   end
 
   test "should show blog" do
-    get :show, id: @blog
+    get :show, params: { id: @blog }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @blog
+    get :edit, params: { id: @blog }
     assert_response :success
   end
 
   test "should update blog" do
-    patch :update, id: @blog, blog: { content: @blog.content, date: @blog.date, tags: @blog.tags }
+    patch :update, params: { id: @blog, blog: { content: @blog.content, date: @blog.date, tags: @blog.tags } }
     assert_redirected_to blog_path(assigns(:blog))
   end
 
   test "should destroy blog" do
     assert_difference('Blog.count', -1) do
-      delete :destroy, id: @blog
+      delete :destroy, params: { id: @blog }
     end
 
     assert_redirected_to blogs_path
